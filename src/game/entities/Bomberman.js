@@ -29,7 +29,7 @@ export class Bomberman extends Entity {
   availableBombs = this.bombAmount;
   lastBombCell = undefined;
 
-  constructor(id, time, getStageCollisionTileAt, onBombPlaced) {
+  constructor(id, time, getStageCollisionTileAt, onBombPlaced, onEnd) {
     super({
       x: (BombermanPlayerData[id].column * TILE_SIZE) + HALF_TILE_SIZE,
       y: (BombermanPlayerData[id].row * TILE_SIZE) + HALF_TILE_SIZE
@@ -61,6 +61,7 @@ export class Bomberman extends Entity {
     this.startPosition = { ...this.position };
     this.getStageCollisionTileAt = getStageCollisionTileAt;
     this.onBombPlaced = onBombPlaced;
+    this.onEnd = onEnd;
 
     this.changeState(BombermanStateType.IDLE, time);
   }
@@ -220,7 +221,9 @@ export class Bomberman extends Entity {
   };
 
   handleDeathState = (time) => {
-    if (this.animationFrame >= animations.deathAnimation.length - 1) this.reset(time);
+    if (animations.deathAnimation[this.animationFrame][1] !== - 1) return;
+
+    this.onEnd(this.id);
   }
 
   handleBombExploded = () => {
@@ -308,6 +311,12 @@ export class Bomberman extends Entity {
 
     drawBox(context, camera, [this.position.x - HALF_TILE_SIZE, this.position.y - HALF_TILE_SIZE,
     TILE_SIZE - 1, TILE_SIZE - 1,], '#FFFF00');
+
+    const collisionBox = this.getCollisionRect();
+    drawBox(context, camera,
+      [collisionBox.x, collisionBox.y, collisionBox.width, collisionBox.height,],
+      '#FFFF00'
+    );
     drawCross(context, camera, { x: this.position.x, y: this.position.y }, '#FFF');
 
   }
