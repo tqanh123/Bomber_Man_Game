@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta />
+	<title>Panther Team | Bomber Man game</title>
+
+	<style>
+		html,
+		body {
+			padding: 0;
+			margin: 0;
+			height: 100%;
+		}
+
+		body {
+			display: flex;
+		}
+
+		body,
+		canvas {
+			background-color: black;
+		}
+
+		canvas {
+			width: 100%;
+			object-fit: contain;
+			image-rendering: crisp-edges;
+			image-rendering: pixelated;
+		}
+
+		img,
+		audio {
+			display: none;
+		}
+	</style>
+	<script type="importmap">
+			{
+				"imports": {
+					"engine/": "./src/engine/",
+					"game/": "./src/game/"
+				}
+			}
+		</script>
+	<script type="module" src="./src/index.js"></script>
+</head>
+
+<body>
+	<img id="bomberman" src="./images/bomberman.png" />
+	<img id="font" src="./images/font.png" />
+	<img id="hud" src="./images/hud.png" />
+	<img id="stage" src="./images/stage.png" />
+	<img id="powerups" src="./images/powerups.png" />
+
+</body>
+
+</html>
