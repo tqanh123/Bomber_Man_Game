@@ -14,20 +14,22 @@ export class BattleHud extends Entity {
     this.clockTimer = time.previous + 1000;
   }
 
-  updateClock(time) {
+  updateClock(time, onClock) {
     if (time.previous < this.clockTimer) return;
 
-    this.clock[1] -= 1;
     this.clockTimer = time.previous + 1000;
 
-    if (this.clock[1] < 0 && this.clock[0] > 0) {
-      this.clock[0] -= 1;
-      this.clock[1] = 59;
+    if (onClock) {
+      this.clock[1] -= 1;
+      if (this.clock[1] < 0 && this.clock[0] > 0) {
+        this.clock[0] -= 1;
+        this.clock[1] = 59;
+      }
     }
   }
 
-  update(time) {
-    this.updateClock(time);
+  update(time, onClock) {
+    this.updateClock(time, onClock);
   }
 
   draw(context) {

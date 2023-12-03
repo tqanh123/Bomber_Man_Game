@@ -1,6 +1,7 @@
 import { Entity } from 'engine/Entity.js';
 import { drawFrameOrigin } from 'engine/context.js';
 import * as control from 'engine/inputHandler.js'
+
 import {
   BombermanPlayerData,
   BombermanStateType,
@@ -14,6 +15,8 @@ import { CounterDirectionsLookup, Direction, MovementLookup } from 'game/constan
 import { DEBUG, FRAME_TIME, HALF_TILE_SIZE, TILE_SIZE } from 'game/constants/game.js';
 import { drawBox, drawCross } from 'game/utils/debug.js';
 import { isZero } from 'game/utils/utils.js';
+
+let isPause = 0;
 
 export class Bomberman extends Entity {
   image = document.querySelector('img#bomberman');
@@ -64,6 +67,14 @@ export class Bomberman extends Entity {
     this.onEnd = onEnd;
 
     this.changeState(BombermanStateType.IDLE, time);
+  }
+
+  IsPause() {
+    return isPause;
+  }
+
+  setIsPause() {
+    isPause++;
   }
 
   changeState(newState, time) {
@@ -175,6 +186,7 @@ export class Bomberman extends Entity {
   }
 
   getMovement() {
+    if (isPause % 2 != 0) return [this.direction, { x: 0, y: 0 }];
     if (control.isLeft(this.id)) { return this.performWallCheck(Direction.LEFT); }
     else if (control.isRight(this.id)) { return this.performWallCheck(Direction.RIGHT); }
     else if (control.isDown(this.id)) { return this.performWallCheck(Direction.DOWN); }
@@ -197,6 +209,7 @@ export class Bomberman extends Entity {
   };
 
   handleGeneralState = (time) => {
+    if (control.isControlPressed(this.id, Control.ESCAPE)) this.setIsPause();
     const [direction, velocity] = this.getMovement();
     if (control.isControlPressed(this.id, Control.ACTION)) this.handleBombPlacement(time);
 
@@ -264,7 +277,7 @@ export class Bomberman extends Entity {
 
     if (
       playerCell.row === this.lastBombCell.row && playerCell.column === this.lastBombCell.column
-      || this.getStageCollisionTileAt(this.lastBombCell) === CollisionTile.BOMB
+      || this.getCollisionTile(this.lastBombCell) === CollisionTile.BOMB
     ) return;
 
     this.lastBombCell = undefined;
@@ -292,8 +305,10 @@ export class Bomberman extends Entity {
   update(time) {
     this.updatePosition(time);
     this.currentState.update(time);
-    this.updateAnimation(time);
-    this.updateCellUndernearth(time);
+    if (isPause % 2 == 0) {
+      this.updateAnimation(time);
+      this.updateCellUndernearth(time);
+    }
   }
 
   draw(context, camera) {

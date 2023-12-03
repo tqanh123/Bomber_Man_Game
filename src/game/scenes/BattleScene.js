@@ -10,6 +10,7 @@ import { PowerupSystem } from 'game/systems/PowerSystem.js';
 
 export class BattleScene extends Scene {
   players = [];
+  isPause = false;
 
   constructor(time, camera, state, onEnd) {
     super();
@@ -25,7 +26,6 @@ export class BattleScene extends Scene {
     for (let id = 0; id < NO_PLAYERS; id++) {
       this.addPlayer(id, time);
     }
-
     camera.position = { x: HALF_TILE_SIZE, y: -STAGE_OFFSET_Y }
   }
 
@@ -53,11 +53,28 @@ export class BattleScene extends Scene {
     this.onEnd(isLastPlayerAlive ? this.players[0].id : 1);
   }
 
+  IsPause() {
+    return this.isPause;
+  }
+
+  setIsPause() {
+    this.isPause = false;
+  }
+
+  updateIsPause(x) {
+    if (x % 2 == 0) this.isPause = false;
+    else this.isPause = true;
+  }
+
   update(time) {
-    this.hud.update(time);
-    this.powerupSystem.update(time);
-    this.blockSystem.update(time);
-    this.bombSystem.update(time);
+    this.updateIsPause(this.players[0].IsPause());
+
+    if (!this.isPause) {
+      this.hud.update(time, !this.isPause);
+      this.powerupSystem.update(time);
+      this.blockSystem.update(time);
+      this.bombSystem.update(time);
+    }
 
     this.players.sort((playerA, playerB) => playerA.position.y - playerB.position.y);
 

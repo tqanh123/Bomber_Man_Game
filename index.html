@@ -6,36 +6,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<meta />
 	<title>Panther Team | Bomber Man game</title>
-
-	<style>
-		html,
-		body {
-			padding: 0;
-			margin: 0;
-			height: 100%;
-		}
-
-		body {
-			display: flex;
-		}
-
-		body,
-		canvas {
-			background-color: black;
-		}
-
-		canvas {
-			width: 100%;
-			object-fit: contain;
-			image-rendering: crisp-edges;
-			image-rendering: pixelated;
-		}
-
-		img,
-		audio {
-			display: none;
-		}
-	</style>
+	<link rel="stylesheet" href="style.css">
 	<script type="importmap">
 			{
 				"imports": {
@@ -48,6 +19,15 @@
 </head>
 
 <body>
+
+	<div id="start-screen">
+		<button id="start"> Start Game</button>
+		<p>
+			Set Player: <input type="number" id="numPlayer" value="2" name="numPlayer" min="2" max="5">
+		</p>
+
+	</div>
+
 	<img id="bomberman" src="./images/bomberman.png" />
 	<img id="font" src="./images/font.png" />
 	<img id="hud" src="./images/hud.png" />

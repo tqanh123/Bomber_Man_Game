@@ -5,11 +5,18 @@ import { clamp } from 'engine/utils/maths.js';
 
 export class BomberManGame extends Game {
 	gameState = {
-		wins: new Array(clamp(NO_PLAYERS, 1, 2)).fill(0),
+		wins: new Array(clamp(NO_PLAYERS, 2, 3)).fill(0),
 		maxWins: MAX_WINS,
 	};
 
 	scene = new BattleScene(this.frameTime, this.camera);
+
+	checkPause = () => {
+		if (this.scene.IsPause()) {
+			this.stop();
+			this.scene.setIsPause();
+		}
+	}
 
 	constructor() {
 		super('body', SCREEN_WIDTH, SCREEN_HEIGHT);
@@ -20,6 +27,9 @@ export class BomberManGame extends Game {
 
 	resetGame = (winnerId) => {
 		if (winnerId > -1) this.gameState.wins[winnerId] += 1;
-		this.scene = new BattleScene(this.frameTime, this.camera, this.gameState, this.resetGame);
+		if (this.gameState.wins[winnerId] < this.gameState.maxWins)
+			this.scene = new BattleScene(this.frameTime, this.camera, this.gameState, this.resetGame);
+		else this.stop();
 	}
 }
+

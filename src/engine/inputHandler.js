@@ -134,4 +134,5 @@ export const isDown = (id) => isControlDown(id, Control.DOWN)
 		controls[id].gamePad[GamepadThumbstick.DEAD_ZONE],
 	);
 
+
 export const isIdle = (id) => !(isLeft(id) || isRight(id) || isUp(id) || isDown(id));

@@ -14,6 +14,7 @@ import { Camera } from './Camera.js';
  * @abstract
  */
 export class Game {
+	pauseState = 0;
 	scene;
 	camera = new Camera(0, 0);
 
@@ -39,7 +40,9 @@ export class Game {
 	/**
 	 * The main loop (used for each "frame" of your game)
 	 * @param {DOMHighResTimeStamp} time
-	 */
+	*/
+
+	checkPause = () => { }
 	frame = (time) => {
 		window.requestAnimationFrame(this.frame);
 
@@ -48,13 +51,26 @@ export class Game {
 
 		pollGamepads();
 		this.scene.update(this.frameTime, this.context, this.camera);
-		this.scene.draw(this.context, this.camera);
+		if (this.pauseState % 2 == 0) {
+			this.scene.draw(this.context, this.camera);
+		}
 	};
+
 
 	start() {
 		registerKeyEvents();
 		registerGamepadEvents();
 
+
+		// if (this.scene.isPause()) {
+		// 	this.pauseState++;
+		// 	this.scene.setIsPause();
+		// }
+
 		window.requestAnimationFrame(this.frame);
+	}
+
+	stop() {
+		this.pauseState++;
 	}
 }
