@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta />
+  <title>Panther Team</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <div class="screen">
+    <i class="fas fa-volume-mute fa-2x" id="sound"></i>
+    <video autoplay loop muted id="videobackground">
+      <source src="./sound/background2.mp4" type="video/mp4" />
+    </video>
+    <!--
+		<p>
+			Set Player: <input type="number" id="numPlayer" value="2" name="numPlayer" min="2" max="5">
+		</p> -->
+    <div class="menu">
+      <h1>Boomber Man</h1>
+      <div class="card-header">
+        <h3 class="card-title">Alive Battles</h3>
+      </div>
+      <form name="my-form" action="" method="get">
+        <div class="card-body">
+          <div class="row">
+            <label for="exampleInputEmail1">Number of alive battles need to win</label>
+            <input type="number" required name="win" value="3" placeholder="input the number">
+          </div>
+          <div class="row">
+            <label for="exampleInputEmail1">Numper of players</label>
+            <input type="number" required name="player" value="2" min="2" max="5" placeholder="input the number">
+          </div>
+        </div>
+
+        <button type="submit" name="submit">SAVE CHANGE</button>
+
+      </form>
+      <li><a href="index.html">Back to menu</a></li>
+    </div>
+  </div>
+</body>
+
+</html>
+<script src="./src/game/constants/game.js"></script>

@@ -33,7 +33,7 @@ body #start-screen {
   justify-content: center;
 }
 
-button {
+/* button {
   border: none;
   appearance: none;
   outline: none;
@@ -44,7 +44,7 @@ button {
   color: #ffffff;
   background-color: #1bafdb;
   border: 2px solid #ffffff;
-}
+} */
 
 /* #start {
   position: fixed;
@@ -59,6 +59,7 @@ button {
   font-family: 'Times New Roman', Times, serif;
 }
 
+/*
 button {
   transition-duration: 0.4s;
 }
@@ -70,7 +71,7 @@ button {
 button:hover {
   font-size: 1.6em;
   background-color: #05c46b;
-}
+} */
 
 body {
   margin: 0;
