@@ -2,37 +2,168 @@
 <html lang="en">
 
 <head>
-	<meta charset="UTF-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	<meta />
-	<title>Panther Team | Bomber Man game</title>
-	<link rel="stylesheet" href="style.css">
-	<script type="importmap">
-			{
-				"imports": {
-					"engine/": "./src/engine/",
-					"game/": "./src/game/"
-				}
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=\, initial-scale=1.0">
+	<link rel="preconnect" href="https://fonts.googleapis.com" />
+	<link rel="preconnect" href="https:..fonts.gstatic.com" crossorigin />
+	<link rel="https://fonts.googleapis.com/css2?family=Roboto:wght@300;700&
+  display=swap" rel="styleshee" />
+	<script src="https://kit.fontawesome.com/ccbd4d5bc1.js" crossorigin="annonymous"></script>
+	<link rel="stylesheet" href="style.css" />
+	<title>Panther Team</title>
+	<style>
+		body {
+			margin: 0;
+			font-family: "Roboto", sans-serif;
+		}
+
+		.screen {
+			height: 100vh;
+			width: 100%;
+			overflow: hidden;
+			position: relative;
+			display: flex;
+			justify-content: start;
+			align-items: center;
+		}
+
+		video {
+			position: absolute;
+			min-width: 100%;
+			min-height: 100vh;
+			top: 0;
+			left: 50%;
+			transform: translateX(-50%);
+			z-index: -1;
+		}
+
+		audio {
+			display: none;
+		}
+
+		.menu {
+			color: #fff;
+			margin-left: 4em;
+			text-transform: uppercase;
+		}
+
+		.menu h1 {
+			font-size: 4em;
+			letter-spacing: 30px;
+			display: block;
+			margin-bottom: 0.5em;
+		}
+
+		.menu h3 {
+			font-weight: 300;
+			font-size: 2.5em;
+			text-align: center;
+			letter-spacing: 10px;
+			position: relative;
+		}
+
+		.menu h3::before,
+		.menu h3::after {
+			content: "";
+			position: absolute;
+			top: 50%;
+			transform: translateY(-50%);
+			background: #fff;
+			width: 3em;
+			height: 3px;
+		}
+
+		.menu h3::before {
+			left: 0;
+		}
+
+		.menu h3::after {
+			right: 0;
+		}
+
+		.menu ul {
+			list-style: none;
+			padding: 0;
+		}
+
+		.menu li {
+			margin: 1em 0;
+		}
+
+		.menu li a {
+			text-decoration: none;
+			font-weight: 700;
+			color:#fff;
+		}
+
+		#round {
+			position: absolute;
+			right: 0;
+			top: 0;
+			margin: 1em;
+			color: #fff;
+			cursor: pointer;
+		}
+
+		.menu li a:hover,
+		#sound:hover {
+			color: #dbdbdb;
+		}
+
+		@media screen and (max-width: 800px) {
+			.menu h1 {
+				font-size: 2em;
 			}
-		</script>
-	<script type="module" src="./src/index.js"></script>
+
+			.menu h3 {
+				font-size: 1.5em;
+			}
+		}
+
+		@media screen and (max-width: 500ox) {
+			.menu h1 {
+				letter-spacing: 5px;
+			}
+
+			.menu h3::before,
+			.menu h3::after {
+				display: none;
+			}
+		}
+
+		@media screen and(max-height: 450px) {
+
+			.screen,
+			video {
+				height: 35em;
+			}
+		}
+	</style>
 </head>
 
 <body>
-
-	<div id="start-screen">
-		<button id="start"> Start Game</button>
-		<p>
-			Set Player: <input type="number" id="numPlayer" value="2" name="numPlayer" min="2" max="5">
-		</p>
-
+	<div class="screen">
+		<i class="fas fa-volume-mute fa-2x" id="sound"></i>
+		<video autoplay loop muted id="videobackground">
+			<source src="./sound/background2.mp4" type="video/mp4" />
+		</video>
+		<!-- <audio id="audioClick">
+			<source src="./sound/Warriors.mp4" loop />
+		</audio>
+		<audio id="audioHover">
+			<source src="./sound/Warriors.mp4" loop /> -->
+		</audio>
+		<div class="menu">
+			<h1>Boomber Man</h1>
+			<h3>Panther Team</h3>
+			<ul>
+				<li><a href="#">New Game</a></li>
+				<li><a href="#">Rules</a></li>
+				<li><a href="#">Creator</a></li>
+				<li><a href="#">Quit</a></li>
+			</ul>
+		</div>
 	</div>
-
-	<img id="bomberman" src="./images/bomberman.png" />
-	<img id="font" src="./images/font.png" />
-	<img id="hud" src="./images/hud.png" />
-	<img id="stage" src="./images/stage.png" />
-	<img id="powerups" src="./images/powerups.png" />
 
 </body>
 
