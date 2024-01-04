@@ -7,15 +7,6 @@
 	<meta />
 	<title>Panther Team</title>
 	<link rel="stylesheet" href="style.css">
-	<!-- <script type="importmap">
-			{
-				"imports": {
-					"engine/": "./src/engine/",
-					"game/": "./src/game/"
-				}
-			}
-		</script>-->
-	<!-- <script type="module" src="./src/index.js"></script> -->
 </head>
 
 <body>
@@ -40,19 +31,20 @@
 			<ul>
 				<!-- <li><button id="start"> Start Game</button></li> -->
 				<li><a href="startGame.html" id="start">Start Game</a></li>
-				<li><a href="#">Rules</a></li>
+				<li><a href="rule.html">Rules</a></li>
 				<li><a href="#">Creator</a></li>
 				<li><a href="setting.html">Setting</a></li>
-				<li><a href="#">Quit</a></li>
+				<li><button onclick="window.close()">Quit</button></li>
 			</ul>
 		</div>
 	</div>
 
-	<!-- <img id="bomberman" src="./images/bomberman.png" />
-	<img id="font" src="./images/font.png" />
-	<img id="hud" src="./images/hud.png" />
-	<img id="stage" src="./images/stage.png" />
-	<img id="powerups" src="./images/powerups.png" /> -->
+	<script>
+		function quitApplication() {
+			// Close the current browser window
+			window.close();
+		}
+	</script>
 </body>
 
 </html>

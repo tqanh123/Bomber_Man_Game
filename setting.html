@@ -24,19 +24,19 @@
       <div class="card-header">
         <h3 class="card-title">Alive Battles</h3>
       </div>
-      <form name="my-form" action="" method="get">
+      <form name="my-form" id="my_form" action="" method="get" enctype="multipart/form-data">
         <div class="card-body">
           <div class="row">
-            <label for="exampleInputEmail1">Number of alive battles need to win</label>
-            <input type="number" required name="win" value="3" placeholder="input the number">
+            <label>Number of alive battles need to win</label>
+            <input type="number" name="win" min="1" placeholder="input the number">
           </div>
           <div class="row">
-            <label for="exampleInputEmail1">Numper of players</label>
-            <input type="number" required name="player" value="2" min="2" max="5" placeholder="input the number">
+            <label>Numper of players</label>
+            <input type="number" name="player" value="2" min="2" max="5" placeholder="input the number">
           </div>
         </div>
 
-        <button type="submit" name="submit">SAVE CHANGE</button>
+        <button type="submit" name="submit">submit</button>
 
       </form>
       <li><a href="index.html">Back to menu</a></li>
@@ -45,4 +45,22 @@
 </body>
 
 </html>
-<script src="./src/game/constants/game.js"></script>
+<!-- <script src="./src/game/constants/game.js">
+
+</script> -->
+<script>
+  let form = document.forms["my-form"];
+  form.addEventListener("submit", function (event) {
+    event.preventDefault();
+    var formData = new FormData(event.target);
+
+    for (var pair of formData.entries()) {
+      console.log(pair[0] + ": " + pair[1]);
+    }
+
+    console.log(Object.fromEntries(formData));
+    // alert(event.player.value);
+    // // var n_player = ;
+    // let n_win = this.win.getValue();
+  });
+</script>
