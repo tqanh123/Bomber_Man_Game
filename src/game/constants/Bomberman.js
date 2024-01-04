@@ -19,9 +19,9 @@ export const BombermanColor = {
 export const BombermanPlayerData = [
   { color: BombermanColor.WHITE, row: 1, column: 2 },
   { color: BombermanColor.BLACK, row: 11, column: 14 },
-  { color: BombermanColor.GREEN, row: 6, column: 8 },
   { color: BombermanColor.RED, row: 1, column: 14 },
   { color: BombermanColor.WHITE, row: 11, column: 2 },
+  { color: BombermanColor.GREEN, row: 6, column: 8 },
 ];
 
 const bombermanFrames = {
@@ -100,22 +100,22 @@ const bombermanFrames = {
     ['move-down-1', [[30, 336, 17, 22], [7, 15]]],
     ['move-down-2', [[61, 336, 17, 22], [9, 15]]],
     ['idle-side', [[79, 336, 18, 22], [7, 15]]],
-    ['move-side-1', [[104, 336, 17, 22], [8, 15]]],
+    ['move-side-1', [[104, 336, 17, 2], [8, 15]]],
     ['move-side-2', [[129, 336, 18, 22], [8, 15]]],
     ['idle-up', [[154, 355, 17, 22], [8, 15]]],
     ['move-up-1', [[180, 355, 17, 22], [7, 15]]],
     ['move-up-2', [[211, 355, 17, 22], [9, 15]]],
 
 
-    ['death-1', [[10, 105, 21, 22], [10, 15]]],
-    ['death-2', [[44, 105, 19, 22], [9, 15]]],
-    ['death-3', [[75, 105, 22, 22], [11, 15]]],
-    ['death-4', [[108, 105, 22, 22], [11, 15]]],
-    ['death-5', [[142, 106, 20, 21], [10, 15]]],
-    ['death-6', [[175, 107, 20, 20], [10, 15]]],
-    ['death-7', [[207, 108, 21, 19], [11, 15]]],
-    ['death-8', [[240, 107, 22, 21], [11, 15]]],
-    ['death-9', [[273, 107, 22, 21], [11, 15]]],
+    ['death-1', [[10, 361, 21, 22], [10, 15]]],
+    ['death-2', [[44, 361, 19, 22], [9, 15]]],
+    ['death-3', [[75, 361, 22, 22], [11, 15]]],
+    ['death-4', [[108, 361, 22, 22], [11, 15]]],
+    ['death-5', [[142, 362, 20, 21], [10, 15]]],
+    ['death-6', [[175, 363, 20, 20], [10, 15]]],
+    ['death-7', [[207, 364, 21, 19], [11, 15]]],
+    ['death-8', [[240, 363, 22, 21], [11, 15]]],
+    ['death-9', [[273, 363, 22, 21], [11, 15]]],
   ],
 
   [BombermanColor.GREEN]: [

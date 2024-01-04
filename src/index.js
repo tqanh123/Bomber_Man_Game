@@ -18,6 +18,7 @@ function startGame() {
 	game.start();
 	disableButton = true;
 	button.setAttribute("hidden", "hidden");
+	var x = document.getElementById("myText").value;
 }
 
 button.addEventListener('click', startGame, true);
