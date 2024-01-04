@@ -23,8 +23,8 @@ export const controls = [
 			[Control.RIGHT]: 'ArrowRight',
 			[Control.UP]: 'ArrowUp',
 			[Control.DOWN]: 'ArrowDown',
-			[Control.ACTION]: 'Enter',
-			[Control.START]: 'shift',
+			[Control.ACTION]: 'ShiftLeft',
+			[Control.START]: 'ShiftRight',
 			[Control.ESCAPE]: 'Escape',
 		},
 	},
@@ -47,6 +47,27 @@ export const controls = [
 			[Control.DOWN]: 'KeyS',
 			[Control.ACTION]: 'KeyE',
 			[Control.START]: 'KeyR',
+		},
+	},
+	{
+		gamePad: {
+			[GamepadThumbstick.DEAD_ZONE]: 0.5,
+			[GamepadThumbstick.HORIZONTAL_AXE_ID]: 0,
+			[GamepadThumbstick.VERTICAL_AXE_ID]: 1,
+
+			[Control.START]: 9,
+			[Control.LEFT]: 14,
+			[Control.RIGHT]: 15,
+			[Control.UP]: 12,
+			[Control.DOWN]: 13,
+		},
+		keyboard: {
+			[Control.LEFT]: 'KeyJ',
+			[Control.RIGHT]: 'KeyL',
+			[Control.UP]: 'KeyI',
+			[Control.DOWN]: 'KeyK',
+			[Control.ACTION]: 'KeyU',
+			[Control.START]: 'KeyO',
 		},
 	},
 	{

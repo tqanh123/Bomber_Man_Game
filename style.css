@@ -46,10 +46,10 @@ button {
   border: 2px solid #ffffff;
 }
 
-#start {
+/* #start {
   position: fixed;
   top: 400px;
-}
+} */
 
 #start-screen p {
   position: fixed;
