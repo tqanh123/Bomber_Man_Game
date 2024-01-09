@@ -22,6 +22,7 @@ export const CollisionTile = {
   POWERUP_FLAME: 1,
   POWERUP_BOMB: 2,
   POWERUP_SPEED: 3,
+  POWERUP_GATE: 4,
   FLAME: 10,
   WALL: 20,
   BOMB: 21,
@@ -41,6 +42,7 @@ export const stageData = {
     [CollisionTile.POWERUP_FLAME]: 8,
     [CollisionTile.POWERUP_BOMB]: 8,
     [CollisionTile.POWERUP_SPEED]: 4,
+    [CollisionTile.POWERUP_GATE]: 1,
   },
   tiles: [
     [29, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 29],

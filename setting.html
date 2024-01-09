@@ -45,22 +45,7 @@
 </body>
 
 </html>
-<!-- <script src="./src/game/constants/game.js">
-
-</script> -->
-<script>
-  let form = document.forms["my-form"];
-  form.addEventListener("submit", function (event) {
-    event.preventDefault();
-    var formData = new FormData(event.target);
-
-    for (var pair of formData.entries()) {
-      console.log(pair[0] + ": " + pair[1]);
-    }
-
-    console.log(Object.fromEntries(formData));
-    // alert(event.player.value);
-    // // var n_player = ;
-    // let n_win = this.win.getValue();
-  });
+<script type="module" src="./src/game/constants/game.js">
+  // import { n_player, n_win } from './src/game/constants/game.js';
+  // ./src/game/utils/htmlValue.js
 </script>

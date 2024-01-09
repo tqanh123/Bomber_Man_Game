@@ -18,3 +18,10 @@ export const CounterDirectionsLookup = {
   [Direction.UP]: [Direction.RIGHT, Direction.LEFT],
   [Direction.DOWN]: [Direction.RIGHT, Direction.LEFT],
 };
+
+export const CounterDirections = {
+  [Direction.LEFT]: [Direction.RIGHT],
+  [Direction.RIGHT]: [Direction.LEFT],
+  [Direction.UP]: [Direction.DOWN],
+  [Direction.DOWN]: [Direction.UP],
+};

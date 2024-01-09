@@ -2,6 +2,7 @@ import { MAX_WINS, NO_PLAYERS, SCREEN_HEIGHT, SCREEN_WIDTH } from 'game/constant
 import { Game } from 'engine/Game.js';
 import { BattleScene } from './scenes/BattleScene.js';
 import { clamp } from 'engine/utils/maths.js';
+// import { inGame } from 'game/constants/game.js';
 
 export class BomberManGame extends Game {
 	gameState = {
@@ -10,7 +11,7 @@ export class BomberManGame extends Game {
 	};
 
 	scene = new BattleScene(this.frameTime, this.camera);
-
+	// inGame = true;
 	checkPause = () => {
 		if (this.scene.IsPause()) {
 			this.stop();

@@ -58,16 +58,28 @@ export class PowerupSystem {
 
   draw(context, camera) {
     for (const powerup of this.powerups) {
-      drawFrame(
-        context, this.image,
-        [
-          8 + (this.animationFrame * TILE_SIZE),
-          8 + ((powerup.type - 1) * TILE_SIZE),
-          TILE_SIZE, TILE_SIZE,
-        ],
-        (powerup.cell.column * TILE_SIZE) - camera.position.x,
-        (powerup.cell.row * TILE_SIZE) - camera.position.y,
-      );
+      if (powerup.type == 4)
+        drawFrame(
+          context, this.image,
+          [
+            56 + (this.animationFrame * TILE_SIZE),
+            8,
+            TILE_SIZE, TILE_SIZE,
+          ],
+          (powerup.cell.column * TILE_SIZE) - camera.position.x,
+          (powerup.cell.row * TILE_SIZE) - camera.position.y,
+        );
+      else
+        drawFrame(
+          context, this.image,
+          [
+            8 + (this.animationFrame * TILE_SIZE),
+            8 + ((powerup.type - 1) * TILE_SIZE),
+            TILE_SIZE, TILE_SIZE,
+          ],
+          (powerup.cell.column * TILE_SIZE) - camera.position.x,
+          (powerup.cell.row * TILE_SIZE) - camera.position.y,
+        );
     }
   }
 }

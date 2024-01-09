@@ -1,8 +1,9 @@
 import { Scene } from 'engine/Scene.js';
 import { BombermanStateType } from 'game/constants/Bomberman.js';
-import { HALF_TILE_SIZE, NO_PLAYERS, STAGE_OFFSET_Y } from 'game/constants/game.js';
+import { HALF_TILE_SIZE, NO_PLAYERS, STAGE_OFFSET_Y, NO_ENEMY } from 'game/constants/game.js';
 import { BattleHud } from 'game/entities/BattleHud.js';
 import { Bomberman } from 'game/entities/Bomberman.js';
+import { Enemies } from 'game/entities/Enemies.js';
 import { Stage } from 'game/entities/Stage.js';
 import { BlockSystem } from 'game/systems/BlockSystem.js';
 import { BombSystem } from 'game/systems/BombSystem.js';
@@ -10,6 +11,7 @@ import { PowerupSystem } from 'game/systems/PowerSystem.js';
 
 export class BattleScene extends Scene {
   players = [];
+  enemies = [];
   isPause = false;
 
   constructor(time, camera, state, onEnd) {
@@ -26,6 +28,11 @@ export class BattleScene extends Scene {
     for (let id = 0; id < NO_PLAYERS; id++) {
       this.addPlayer(id, time);
     }
+
+    for (let id = 0; id < NO_ENEMY; id++) {
+      this.addEnemy(id, time);
+    }
+
     camera.position = { x: HALF_TILE_SIZE, y: -STAGE_OFFSET_Y }
   }
 
@@ -45,12 +52,37 @@ export class BattleScene extends Scene {
     ));
   }
 
+  removeEnemy = (id) => {
+    const index = this.enemies.findIndex((player) => player.id === id);
+    if (index < 0) return;
+
+    this.enemies.splice(index, 1);
+  };
+
+  addEnemy(id, time) {
+    this.enemies.push(new Enemies(
+      id, time,
+      this.stage.getCollisionTileAt,
+      this.removeEnemy,
+    ));
+  }
+
   checkEndGame() {
+
+    for (const player of this.players) {
+      if (player.checkEndGame()) {
+        const PlayerWin = this.players.length > 0 && player.currentState.type !== BombermanStateType.DEATH;
+
+        this.onEnd(PlayerWin ? player.id : 20);
+        return;
+      }
+    }
+
     if (this.players.length > 1) return;
 
     const isLastPlayerAlive = this.players.length > 0 && this.players[0].currentState.type !== BombermanStateType.DEATH;
 
-    this.onEnd(isLastPlayerAlive ? this.players[0].id : 1);
+    this.onEnd(isLastPlayerAlive ? this.players[0].id : 20);
   }
 
   IsPause() {
@@ -82,6 +114,10 @@ export class BattleScene extends Scene {
       player.update(time);
     }
 
+    for (const enemy of this.enemies) {
+      enemy.update(time);
+    }
+
     this.checkEndGame();
   }
 
@@ -96,5 +132,10 @@ export class BattleScene extends Scene {
     for (const player of this.players) {
       player.draw(context, camera);
     }
+
+    for (const enemy of this.enemies) {
+      enemy.draw(context, camera);
+    }
+
   }
 }
