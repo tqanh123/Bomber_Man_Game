@@ -57,6 +57,14 @@ export class Enemies extends Entity {
     this.changeState(EnemyStateType.MOVING, time);
   }
 
+  IsPause() {
+    return isPause;
+  }
+
+  setIsPause() {
+    isPause++;
+  }
+
   changeState(newState, time) {
     this.currentState = this.states[newState];
     this.animationFrame = 0;
@@ -178,7 +186,7 @@ export class Enemies extends Entity {
   handleGeneralState = (time) => {
     if (control.isControlPressed(this.id, Control.ESCAPE)) this.setIsPause();
     const [direction, velocity] = this.getMovement();
-    if (control.isControlPressed(this.id, Control.ACTION)) this.handleBombPlacement(time);
+    // if (control.isControlPressed(this.id, Control.ACTION)) this.handleBombPlacement(time);
 
     this.animation = animations.moveAnimations[direction];
     this.direction = direction;

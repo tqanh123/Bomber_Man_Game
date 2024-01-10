@@ -82,7 +82,7 @@ export class BattleScene extends Scene {
 
     const isLastPlayerAlive = this.players.length > 0 && this.players[0].currentState.type !== BombermanStateType.DEATH;
 
-    this.onEnd(isLastPlayerAlive ? this.players[0].id : 20);
+    this.onEnd(isLastPlayerAlive ? this.players[0].id : 1);
   }
 
   IsPause() {
@@ -96,26 +96,33 @@ export class BattleScene extends Scene {
   updateIsPause(x) {
     if (x % 2 == 0) this.isPause = false;
     else this.isPause = true;
+
+    if (this.enemies.length != 0) {
+      if (this.enemies[0].IsPause() != this.players[0].IsPause())
+        this.enemies[0].setIsPause();
+    }
   }
 
   update(time) {
-    this.updateIsPause(this.players[0].IsPause());
+    if (this.players.length != 0)
+      this.updateIsPause(this.players[0].IsPause());
+    // if ()
+    // this.updateIsPause(this.enemies[0].IsPause());
 
     if (!this.isPause) {
       this.hud.update(time, !this.isPause);
       this.powerupSystem.update(time);
       this.blockSystem.update(time);
       this.bombSystem.update(time);
+      for (const enemy of this.enemies) {
+        enemy.update(time);
+      }
     }
 
     this.players.sort((playerA, playerB) => playerA.position.y - playerB.position.y);
 
     for (const player of this.players) {
       player.update(time);
-    }
-
-    for (const enemy of this.enemies) {
-      enemy.update(time);
     }
 
     this.checkEndGame();

@@ -35,4 +35,4 @@ if (form) {
 }
 console.log(NO_PLAYERS)
 // console.log(player)
-export const DEBUG = false;
+export const DEBUG = true;

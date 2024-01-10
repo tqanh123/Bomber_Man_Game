@@ -27,7 +27,7 @@ export class BomberManGame extends Game {
 	}
 
 	resetGame = (winnerId) => {
-		if (winnerId > -1) this.gameState.wins[winnerId] += 1;
+		if (winnerId > -1 && winnerId <= NO_PLAYERS) this.gameState.wins[winnerId] += 1;
 		if (this.gameState.wins[winnerId] < this.gameState.maxWins)
 			this.scene = new BattleScene(this.frameTime, this.camera, this.gameState, this.resetGame);
 		else this.stop();
