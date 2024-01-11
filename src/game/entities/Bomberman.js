@@ -14,7 +14,7 @@ import { Control } from 'game/constants/controls.js';
 import { CounterDirectionsLookup, Direction, MovementLookup } from 'game/constants/entities.js';
 import { DEBUG, FRAME_TIME, HALF_TILE_SIZE, TILE_SIZE } from 'game/constants/game.js';
 import { drawBox, drawCross } from 'game/utils/debug.js';
-import { isZero } from 'game/utils/utils.js';
+import { isZero, getCollisionRect } from 'game/utils/utils.js';
 
 let isPause = 0;
 
@@ -94,11 +94,6 @@ export class Bomberman extends Entity {
     this.velocity.x = 0;
     this.velocity.y = 0;
   }
-
-  getCollisionRect = () => ({
-    x: this.position.x - (HALF_TILE_SIZE / 2), y: this.position.y - (HALF_TILE_SIZE / 2),
-    width: HALF_TILE_SIZE, height: HALF_TILE_SIZE,
-  });
 
   reset(time) {
     this.animationFrame = 0;
@@ -337,7 +332,7 @@ export class Bomberman extends Entity {
     drawBox(context, camera, [this.position.x - HALF_TILE_SIZE, this.position.y - HALF_TILE_SIZE,
     TILE_SIZE - 1, TILE_SIZE - 1,], '#FFFF00');
 
-    const collisionBox = this.getCollisionRect();
+    const collisionBox = getCollisionRect(this);
     drawBox(context, camera,
       [collisionBox.x, collisionBox.y, collisionBox.width, collisionBox.height,],
       '#FFFF00'

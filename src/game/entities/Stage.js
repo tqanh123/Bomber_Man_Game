@@ -24,7 +24,12 @@ export class Stage extends Entity {
   }
 
   getCollisionTileAt = (cell) => {
-    return this.collisionMap[cell.row][cell.column] ?? CollisionTile.EMPTY;
+    // return this.collisionMap[cell.row][cell.column] ?? CollisionTile.EMPTY;
+    if (this.collisionMap && cell) {
+      return this.collisionMap[cell.row]?.[cell.column] ?? CollisionTile.EMPTY;
+    } else {
+      return 30;
+    }
   };
 
   updateMapAt = (cell, tile) => {

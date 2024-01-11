@@ -13,7 +13,7 @@ export const MonsterType = {
 };
 
 export const EnemiesData = [
-  { name: MonsterType.BALLOON, row: 1, column: 3 },
+  { name: MonsterType.BALLOON, row: 1, column: 14 },
   { name: MonsterType.WATER, row: 6, column: 8 },
 ];
 

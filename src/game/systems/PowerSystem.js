@@ -1,6 +1,7 @@
 import { drawFrame } from "engine/context.js";
 import { rectanglesOverlap } from "engine/utils/collisions.js";
 import { FRAME_TIME, TILE_SIZE } from "game/constants/game.js";
+import { getCollisionRect } from "game/utils/utils.js";
 
 const FRAME_DELAY = 8 * FRAME_TIME;
 
@@ -43,7 +44,7 @@ export class PowerupSystem {
   hasPlayerCollided() {
     for (const player of this.players) {
       for (const powerup of this.powerups) {
-        if (!rectanglesOverlap(player.getCollisionRect(), this.getCollisionRectFor(powerup))) continue;
+        if (!rectanglesOverlap(getCollisionRect(player), this.getCollisionRectFor(powerup))) continue;
 
         player.applyPowerup(powerup.type);
         this.remove(powerup);

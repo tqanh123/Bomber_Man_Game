@@ -14,7 +14,6 @@ import { Control } from 'game/constants/controls.js';
 import { CounterDirectionsLookup, CounterDirections, Direction, MovementLookup } from 'game/constants/entities.js';
 import { DEBUG, FRAME_TIME, HALF_TILE_SIZE, TILE_SIZE } from 'game/constants/game.js';
 import { drawBox, drawCross } from 'game/utils/debug.js';
-import { isZero } from 'game/utils/utils.js';
 
 let isPause = 0;
 
@@ -92,10 +91,7 @@ export class Enemies extends Entity {
   }
 
   getCollisionTile(cell) {
-    if (
-      this.lastBombCell && cell.row === this.lastBombCell.row
-      && cell.column === this.lastBombCell.column
-    ) return CollisionTile.EMPTY;
+    // console.log(cell.column);
 
     return this.getStageCollisionTileAt(cell);
   }
@@ -124,6 +120,30 @@ export class Enemies extends Entity {
         return [
           { row: Math.floor((this.position.y + 8) / TILE_SIZE), column: Math.floor((this.position.x - 8) / TILE_SIZE) },
           { row: Math.floor((this.position.y + 8) / TILE_SIZE), column: Math.floor((this.position.x + 7) / TILE_SIZE) },
+        ];
+    }
+  }
+
+  getCollisionCoord(direction) {
+    switch (direction) {
+      case Direction.UP:
+        return [
+          { row: Math.floor((this.position.y - 9) / TILE_SIZE), column: Math.floor((this.position.x) / TILE_SIZE) },
+        ];
+
+      case Direction.LEFT:
+        return [
+          { row: Math.floor((this.position.y) / TILE_SIZE), column: Math.floor((this.position.x - 9) / TILE_SIZE) },
+        ];
+
+      case Direction.RIGHT:
+        return [
+          { row: Math.floor((this.position.y) / TILE_SIZE), column: Math.floor((this.position.x + 8) / TILE_SIZE) },
+        ];
+
+      case Direction.DOWN:
+        return [
+          { row: Math.floor((this.position.y + 8) / TILE_SIZE), column: Math.floor((this.position.x) / TILE_SIZE) },
         ];
     }
   }
@@ -157,7 +177,8 @@ export class Enemies extends Entity {
   }
 
   WallCheck1(direction) {
-    const collisionCoords = this.getCollisionCoords(direction);
+    const collisionCoords = this.getCollisionCoord(direction);
+
 
     // if (this.shouldBlockMovement(collisionCoords)) return [this.direction, { x: 0, y: 0 }]
     const newDirections = CounterDirections[direction];
@@ -165,11 +186,12 @@ export class Enemies extends Entity {
       return [newDirections[0], { ...MovementLookup[newDirections[0]] }];
     }
 
+
     return [direction, { ...MovementLookup[direction] }];
   }
 
   getMovement() {
-    // if (isPause % 2 != 0) return [this.direction, { x: 0, y: 0 }];
+    if (isPause % 2 != 0) return [this.direction, { x: 0, y: 0 }];
 
     return this.WallCheck1(this.direction);
   }

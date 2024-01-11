@@ -8,6 +8,8 @@ import { Stage } from 'game/entities/Stage.js';
 import { BlockSystem } from 'game/systems/BlockSystem.js';
 import { BombSystem } from 'game/systems/BombSystem.js';
 import { PowerupSystem } from 'game/systems/PowerSystem.js';
+import { getCollisionRect } from 'game/utils/utils.js';
+import { rectanglesOverlap } from 'engine/utils/collisions.js';
 
 export class BattleScene extends Scene {
   players = [];
@@ -103,11 +105,30 @@ export class BattleScene extends Scene {
     }
   }
 
+  checkContactEnemies(time) {
+    for (const player of this.players) {
+      let ok = true;
+      let pRect = getCollisionRect(player);
+      for (let enemy of this.enemies) {
+        if (!rectanglesOverlap(pRect, getCollisionRect(enemy))) continue;
+
+        player.changeState(BombermanStateType.DEATH, time);
+      }
+    }
+  }
+
+  isIntersect(player, enemy) {
+    return !(player.y + player.width < enemy.y ||
+      player.y > enemy.y + enemy.width ||
+      player.x + player.height < enemy.x ||
+      player.x > enemy.x + enemy.height);
+  }
+
   update(time) {
     if (this.players.length != 0)
       this.updateIsPause(this.players[0].IsPause());
-    // if ()
-    // this.updateIsPause(this.enemies[0].IsPause());
+
+    this.checkContactEnemies(time);
 
     if (!this.isPause) {
       this.hud.update(time, !this.isPause);
