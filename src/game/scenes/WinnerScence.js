@@ -6,12 +6,11 @@ import { drawFrameOrigin } from "engine/context.js";
 export class WinnerScence extends Scene {
   image = document.querySelector('img#winner');
 
-  constructor(camera, idGame, life, maxScore, id) {
+  constructor(camera, idGame, maxScore, id) {
     super();
     camera.position = { x: HALF_TILE_SIZE, y: -STAGE_OFFSET_Y };
     this.level = idGame;
-    this.life = life;
-    this.maxScore = maxScore;
+    this.score = maxScore;
     this.id = id;
   }
 
@@ -25,7 +24,8 @@ export class WinnerScence extends Scene {
     context.drawImage(
       this.image,
       30, 40 + (this.id * 70), 60, 70,
-      SCREEN_WIDTH / 2 - HALF_TILE_SIZE, SCREEN_HEIGHT / 2 + TILE_SIZE, 30, 40,
+      SCREEN_WIDTH / 2 - TILE_SIZE, SCREEN_HEIGHT / 2 + TILE_SIZE, 30, 40,
     );
+    console.log(40 + (this.id * 70));
   }
 }

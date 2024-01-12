@@ -32,6 +32,7 @@ export class BomberManGame extends Game {
 		this.life = life;
 		this.idGame = id;
 		this.scene = new BattleScene(this.frameTime, this.camera, this.gameState, this.resetGame, id, life, maxScore, 0);
+		// this.scene = new WinnerScence(this.camera, this.idGame, maxScore, 0)
 	}
 
 	setIDGame(id) {
@@ -42,12 +43,14 @@ export class BomberManGame extends Game {
 		if (this.idGame === 0) {
 			if (winnerId > -1 && winnerId <= NO_PLAYERS) this.gameState.wins[winnerId] += 1;
 			else winnerId = 0;
+
 			if (this.gameState.wins[winnerId] < this.gameState.maxWins) {
 				this.scene = new BattleScene(this.frameTime, this.camera, this.gameState, this.resetGame, this.idGame, this.life, maxScore, point);
-				console.log('oke');
+
 			}
 			else {
-				this.scene = new WinnerScence(this.camera, this.idGame, winnerId);
+				console.log(winnerId);
+				this.scene = new WinnerScence(this.camera, this.idGame, 0, winnerId);
 			}
 		}
 		else {
@@ -58,7 +61,7 @@ export class BomberManGame extends Game {
 				}
 				else {
 					if (point > maxScore) maxScore = point;
-					this.scene = new WinnerScence(this.camera, this.idGame, 0);
+					this.scene = new WinnerScence(this.camera, this.idGame, point, 0);
 				}
 			}
 			else {
