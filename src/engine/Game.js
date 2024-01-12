@@ -50,7 +50,9 @@ export class Game {
 		this.frameTime.previous = time;
 
 		pollGamepads();
-		this.scene.update(this.frameTime, this.context, this.camera);
+		if (this.scene && typeof this.scene.update === 'function') {
+			this.scene.update(this.frameTime, this.context, this.camera);
+		}
 		if (this.pauseState % 2 == 0) {
 			this.scene.draw(this.context, this.camera);
 		}

@@ -191,7 +191,7 @@ export class Bomberman extends Entity {
   }
 
   getMovement() {
-    if (isPause % 2 != 0) return [this.direction, { x: 0, y: 0 }];
+    if (isPause % 2 !== 0) return [this.direction, { x: 0, y: 0 }];
     if (control.isLeft(this.id)) { return this.performWallCheck(Direction.LEFT); }
     else if (control.isRight(this.id)) { return this.performWallCheck(Direction.RIGHT); }
     else if (control.isDown(this.id)) { return this.performWallCheck(Direction.DOWN); }

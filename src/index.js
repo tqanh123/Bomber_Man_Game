@@ -1,28 +1,26 @@
 import { BomberManGame } from 'game/BomberManGame.js';
 
-window.addEventListener('load', () => {
-	new BomberManGame().start();
-});
-
-// window.addEventListener('click',)
-// (function () {
-
-// })();
+// window.addEventListener('load', () => {
+// 	new BomberManGame().start();
+// });
 
 // let game = new BomberManGame();
-// let disableButton = false;
-// const button = document.getElementById('start');
-// let hidden = button.getAttribute("hidden");
+const advanture = document.getElementById('adventure');
+const battle = document.getElementById('battle');
 
-// function startGame() {
-// 	game.start();
-// 	alert("ok");
-// 	disableButton = true;
-// 	button.setAttribute("hidden", "hidden");
-// 	var x = document.getElementById("myText").value;
-// }
+battle.addEventListener('click', function () {
+	document.querySelector('.menu').style.display = 'none';
+	new BomberManGame(0).start();
+	// game.start();
+	// alert("ok 1");
+});
 
-// button.addEventListener('click', startGame, true);
+advanture.addEventListener('click', function () {
+	document.querySelector('.menu').style.display = 'none';
+	new BomberManGame(1).start();
+	// game.start();
+	// alert("ok 2");
+});
 
-// if (!disableButton) button.removeAttribute("hidden");
+
 

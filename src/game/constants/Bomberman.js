@@ -18,7 +18,7 @@ export const BombermanColor = {
 
 export const BombermanPlayerData = [
   { color: BombermanColor.WHITE, row: 1, column: 2 },
-  { color: BombermanColor.BLACK, row: 11, column: 14 },
+  { color: BombermanColor.BLACK, row: 1, column: 3 },
   { color: BombermanColor.RED, row: 1, column: 14 },
   { color: BombermanColor.WHITE, row: 11, column: 2 },
   { color: BombermanColor.GREEN, row: 6, column: 8 },

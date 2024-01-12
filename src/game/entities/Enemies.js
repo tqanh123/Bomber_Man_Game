@@ -47,6 +47,10 @@ export class Enemies extends Entity {
     };
 
     this.id = id;
+    if (id < 2)
+      this.point = 100;
+    else
+      this.point = 200;
     this.name = EnemiesData[id].name;
     this.frames = getEnemiesFrames(this.name);
     this.startPosition = { ...this.position };
@@ -191,7 +195,7 @@ export class Enemies extends Entity {
   }
 
   getMovement() {
-    if (isPause % 2 != 0) return [this.direction, { x: 0, y: 0 }];
+    if (isPause % 2 !== 0) return [this.direction, { x: 0, y: 0 }];
 
     return this.WallCheck1(this.direction);
   }

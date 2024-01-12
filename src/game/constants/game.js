@@ -15,9 +15,9 @@ export const STAGE_OFFSET_Y = 24;
 
 export let NO_ENEMY = 2;
 export let NO_PLAYERS = 2;
-export let MAX_WINS = 2;
-// if (player != 0) NO_PLAYERS = player;
-// if (win != 0) MAX_WINS = win;
+export let MAX_WINS = 1;
+// if (player !== 0) NO_PLAYERS = player;
+// if (win !== 0) MAX_WINS = win;
 let form = document.forms["my-form"];
 if (form) {
   form.addEventListener("submit", function (event) {
@@ -35,4 +35,4 @@ if (form) {
 }
 console.log(NO_PLAYERS)
 // console.log(player)
-export const DEBUG = true;
+export const DEBUG = false;

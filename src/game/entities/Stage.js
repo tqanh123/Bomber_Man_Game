@@ -48,9 +48,6 @@ export class Stage extends Entity {
     }
   }
 
-
-
-
   update = () => undefined;
 
   draw(context, camera) {

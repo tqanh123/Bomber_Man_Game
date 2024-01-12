@@ -20,12 +20,24 @@ const frames = new Map([
 
 const fontImage = document.querySelector('img#font');
 
+// export function drawText(context, text, baseX, baseY) {
+//   let x = 0;
+
+//   for (const char of text) {
+//     if (char !== ' ') {
+//       drawFrame(context, fontImage, frames.get(`alpha-${char}`), baseX + x, baseY);
+//     }
+
+//     x += 8;
+//   }
+// }
 export function drawText(context, text, baseX, baseY) {
   let x = 0;
 
   for (const char of text) {
-    if (char !== ' ') {
-      drawFrame(context, fontImage, frames.get(`alpha-${char}`), baseX + x, baseY);
+    const frame = frames.get(`alpha-${char}`);
+    if (char !== ' ' && frame) {
+      drawFrame(context, fontImage, frame, baseX + x, baseY);
     }
 
     x += 8;
