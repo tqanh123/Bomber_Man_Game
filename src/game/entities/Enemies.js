@@ -26,7 +26,7 @@ export class Enemies extends Entity {
   speedMultiplier = 1.2;
   animation = animations.moveAnimations[this.direction];
 
-  constructor(id, time, getStageCollisionTileAt, onEnd) {
+  constructor(id, time, getStageCollisionTileAt, onEnd, bomberman) {
     super({
       x: (EnemiesData[id].column * TILE_SIZE) + HALF_TILE_SIZE,
       y: (EnemiesData[id].row * TILE_SIZE) + HALF_TILE_SIZE
@@ -51,6 +51,7 @@ export class Enemies extends Entity {
       this.point = 100;
     else
       this.point = 200;
+    this.bomberman = bomberman;
     this.name = EnemiesData[id].name;
     this.frames = getEnemiesFrames(this.name);
     this.startPosition = { ...this.position };
@@ -59,6 +60,8 @@ export class Enemies extends Entity {
 
     this.changeState(EnemyStateType.MOVING, time);
   }
+
+
 
   IsPause() {
     return isPause;
@@ -194,11 +197,127 @@ export class Enemies extends Entity {
     return [direction, { ...MovementLookup[direction] }];
   }
 
+
+  
+  positionToGrid(position) {
+    if (!position) {
+      // Handle the case when position is undefined
+      return { row: 0, column: 0 };
+    }
+  
+    return {
+      row:  Math.floor(position.y / TILE_SIZE),
+      column:  Math.floor(position.x / TILE_SIZE),
+    };
+  }
+
+  calculateDirection(start, end) {
+    const deltaX = end.column - start.column;
+    const deltaY = end.row - start.row;
+
+    if (deltaX === 1) return Direction.RIGHT;
+    if (deltaY === 1) return Direction.DOWN;
+    if (deltaX === -1) return Direction.LEFT;
+    if (deltaY === -1) return Direction.UP;
+
+    return this.direction;
+  }
+
+  findPathToTarget(target) {
+
+
+    const ROWS = 14;
+    const COLUMNS = 17;
+    const start = this.positionToGrid(this.position);
+    const openSet = [start];
+    const cameFrom = {};
+
+    const gScore = { [`${start.row}-${start.column}`]: 0 };
+
+    while (openSet.length > 0) {
+      const current = openSet.shift();
+
+      if (current.row === target.row && current.column === target.column) {
+        const path = [];
+        let currentCell = current;
+        while (cameFrom[`${currentCell.row}-${currentCell.column}`]) {
+          path.unshift(currentCell);
+          currentCell = cameFrom[`${currentCell.row}-${currentCell.column}`];
+        }
+        return path;
+      }
+
+      const neighbors = [
+        { row: current.row - 1, column: current.column },
+        { row: current.row + 1, column: current.column },
+        { row: current.row, column: current.column - 1 },
+        { row: current.row, column: current.column + 1 },
+      ];
+
+      for (const neighbor of neighbors) {
+        const neighborKey = `${neighbor.row}-${neighbor.column}`;
+        const tentativeGScore = gScore[`${current.row}-${current.column}`] + 1;
+
+        if (
+          neighbor.row < 0 || neighbor.row >= ROWS ||
+          neighbor.column < 0 || neighbor.column >= COLUMNS ||
+          this.getCollisionTile(neighbor) >= CollisionTile.WALL ||
+          (gScore[neighborKey] !== undefined && tentativeGScore >= gScore[neighborKey])
+        ) {
+          continue;
+        }
+
+        cameFrom[neighborKey] = current;
+        gScore[neighborKey] = tentativeGScore;
+
+        if (!openSet.some(cell => cell.row === neighbor.row && cell.column === neighbor.column)) {
+          openSet.push(neighbor);
+        }
+      }
+    }
+    return [];
+  }
+
+  // getMovement() {
+  //   if (isPause % 2 !== 0) return [this.direction, { x: 0, y: 0 }];
+
+  //   
+  // }
+
+  // getMovement() {
+  //   if (isPause % 2 !== 0) return [this.direction, { x: 0, y: 0 }];
+    
+  //   const targetPosition = this.bomberman.getPosition();
+  //   const path = this.findPathToTarget(this.positionToGrid(targetPosition));
+  
+  //   if (path.length > 1) {
+  //     const nextCell = path[1];
+  //     const direction = this.calculateDirection(this.positionToGrid(this.position), nextCell);
+  //     return this.WallCheck1(direction);
+  //     // return [direction, { ...MovementLookup[direction] }];
+  //   }
+  
+  //   return [this.direction, { x: 0, y: 0 }];
+  // }
+
   getMovement() {
     if (isPause % 2 !== 0) return [this.direction, { x: 0, y: 0 }];
 
-    return this.WallCheck1(this.direction);
-  }
+    const targetPosition = this.bomberman.getPosition();
+    console.log('Target Position:', targetPosition);
+
+    const path = this.findPathToTarget(this.positionToGrid(targetPosition));
+    console.log('Path:', path);
+
+    if (path.length > 1) {
+        const nextCell = path[1];
+        const direction = this.calculateDirection(this.positionToGrid(this.position), nextCell);
+        console.log('Direction:', direction);
+        return [direction, { ...MovementLookup[direction] }];
+    }
+
+    return [this.direction, { x: 0, y: 0 }];
+}
 
   handleMovingInit = () => {
     this.animationFrame = 1;
@@ -220,9 +339,16 @@ export class Enemies extends Entity {
     return velocity;
   };
 
+  // handleMovingState = (time) => {
+  //   this.velocity = this.handleGeneralState(time);
+  // };
+
   handleMovingState = (time) => {
-    this.velocity = this.handleGeneralState(time);
-  };
+    const [direction, velocity] = this.getMovement();
+    this.animation = animations.moveAnimations[direction];
+    this.direction = direction;
+    this.velocity = velocity;
+};
 
   handleDeathState = (time) => {
     if (animations.deathAnimation[this.animationFrame][1] !== - 1) return;

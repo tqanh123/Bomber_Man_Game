@@ -84,6 +84,7 @@ export class BattleScene extends Scene {
       id, time,
       this.stage.getCollisionTileAt,
       this.removeEnemy,
+      this.players[0], 
     ));
   }
 

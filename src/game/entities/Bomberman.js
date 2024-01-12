@@ -307,6 +307,10 @@ export class Bomberman extends Entity {
     this.checkFlameTileCollision(playerCell, time);
   }
 
+  getPosition() {
+    return { x: this.position.x, y: this.position.y };
+  }
+
   update(time) {
     this.updatePosition(time);
     this.currentState.update(time);
